@@ -2,37 +2,22 @@
 body { margin: 0; }
 
 /* global styles */
-video, #dummy {
-  /* background-color: #111; */
-  /* max-width: 45%; */
-  /* max-height: 250px; */
-  margin: 10px 10px 0 10px;
-  /* width: calc(50% - 15px); */
-  width: calc(50vw - 205px);
-  height: calc(calc(50vw - 205px) * 3 / 4);
-  max-height: calc(50vh - 95px);
-  /* left: 0; */
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 100vh;
+  position: relative;
+  padding-top: 60px;
+  padding-bottom: 100px;
+  padding-left: 30px;
+  padding-right: 30px;
+  box-sizing: border-box;
+  background: #f6fbff;
 }
 
-video, #dummy, .remote-streams {
-  background: #111111;
-}
-
-/* video {
-  margin: 10px 10px 0 10px;
-} */
-
-/* .heading {
-  text-align: center;
-  margin-bottom: 0;
-} */
-
-/* .note {
-  text-align: center;
-} */
-
+/* header */
 header {
-  /* padding: 10px 0; */
   height: 50px;
   font-size: 18px;
   position: absolute;
@@ -43,6 +28,7 @@ header input, header button {
   font-size: 18px;
 }
 
+/* body */
 #js-room-mode {
   display: none;
 }
@@ -54,33 +40,34 @@ header input, header button {
   display: none;
 }
 
-.container {
-  margin-left: auto;
-  margin-right: auto;
-  /* max-width : 1060px; */
-  min-height: 100vh;
-  position: relative;
-  padding-top: 60px;
-  padding-bottom: 100px;
-  padding-left: 30px;
-  padding-right: 30px;
-  box-sizing: border-box;
-  background: #f6fbff;
+
+#videos video, #dummy {
+  margin: 0 0 10px 0;
+  /* width: calc(50vw - 205px); */
+  /* height: calc(calc(50vw - 205px) * 3 / 4); */
+  /* max-height: calc(50vh - 95px); */
+  /* max-height: calc(25vh - 95px); */
+  width: 100%;
 }
+
+video, #dummy, .remote-streams {
+  background: #111111;
+}
+
+#media video {
+  width: 100%;
+  /* margin: 10px; */
+}
+
 
 /* room */
 .room {
   display: grid;
-  /* grid-template-columns: 30% 40% 30%; */
-  grid-template-columns: 1fr 280px;
-  gap: 10px;
-  /* margin: 0 8px; */
-  /* height: 500px; */
+  /* grid-template-columns: 1fr 280px; */
+  /* grid-template-columns: 65% 20% 15%; */
+  grid-template-columns: 5fr minmax(200px, 1fr) 280px;
+  /* gap: 10px; */
 }
-
-/* .room {
-  background-color: #f6fbff;
-} */
 
 .room .messages {
   background-color: #eee;
@@ -90,100 +77,34 @@ header input, header button {
 }
 
 .room #videos {
-  /* display: flex; */
-  /* flex-wrap: wrap; */
-  /* margin: 0 8px; */
   position: relative;
-
-  /* position: relative; */
+  padding: 10px;
 }
 
-/* .room #js-local-stream, .room #dummy {
-  width: 45%;
-} */
-
 .room #js-local-stream {
-  position: absolute;
+  /* position: absolute; */
   z-index: 999;
-  transform: scaleX(-1);
+  /* transform: scaleX(-1); */
 }
 
 .room .remote-streams {
   display: flex;
   flex-wrap: wrap;
-  /* width: 100%; */
-  /* position: absolute; */
-
-  /* max-height: 500px; */
-
-  /* height: auto; */
 }
 
 .room #dummy {
   position: relative;
-  /* z-index: -1; */
-  /* opacity: 100%; */
 }
 
 
-/* #videos:after{
-	content: "";
-	clear: both;
-	display: block;
-} */
-
-/* #js-meta {
-  height: 0;
-  opacity: 100%;
-} */
-
-.chat input, .chat button{
-  font-size: 16px;
-}
-
-
-
-
-footer {
-  position: absolute;
-  bottom: 10px;
-  height: 80px;
-}
-
-footer button {
-  font-size: 18px;
-}
-
-
-#videos {
-  background: #111111;
-  height: calc(100vh - 150px);
-}
-
-.chat {
-  width: 280px;
-}
-
-button {
-  background-color: rgb(153, 168, 180);
-  color: white;
-  border: 0;
-  /* border-radius: 30%; */
-}
-button:hover {
-  cursor: pointer;
-  background-color:  rgb(62, 158, 236);
-}
-button:focus {
-	outline:0;
-}
-button:focus {
-	outline:0;
+/* media */
+#media {
+  background: #111;
 }
 
 .wrap-video {
   position: relative;
-  width: calc(50vw - 205px);
+  /* width: calc(50vw - 205px); */
 
 }
 .name, .local-name {
@@ -199,4 +120,54 @@ button:focus {
 
 .local-name {
   bottom: -3px;
+}
+
+#videos {
+  background: #111111;
+  height: calc(100vh - 150px);
+}
+
+
+/* chat */
+.chat {
+  /* width: 280px; */
+  padding: 10px;
+}
+
+.chat input, .chat button{
+  font-size: 16px;
+}
+
+
+/* component */
+button {
+  background-color: rgb(153, 168, 180);
+  color: white;
+  border: 0;
+}
+button:hover {
+  cursor: pointer;
+  background-color:  rgb(62, 158, 236);
+}
+button:focus {
+	outline:0;
+}
+button:focus {
+  outline:0;
+}
+
+#js-share-trigger, #js-watch-trigger, #js-stop-trigger {
+  display: none;
+}
+
+
+/* footer */
+footer {
+  position: absolute;
+  bottom: 10px;
+  height: 80px;
+}
+
+footer button {
+  font-size: 18px;
 }

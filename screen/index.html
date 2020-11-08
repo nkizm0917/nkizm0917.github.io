@@ -24,13 +24,20 @@
         <button id="js-leave-trigger">退出</button>
       </header>
       <div class="room">
+
+        <div id="media">
+          <video id="js-media-stream"></video>
+          <button id="js-share-trigger">全員に画面を共有</button>
+          <button id="js-watch-trigger">共有された画面を表示</button>
+          <button id="js-stop-trigger">共有を停止</button>
+        </div>
+
         <div id="videos">
           <div class="wrap-video" id="local-wrap-video">
             <video id="js-local-stream"></video>
           </div>
-            <div class="remote-streams" id="js-remote-streams"></div>
-        </div>
-        
+          <div class="remote-streams" id="js-remote-streams"></div>
+        </div>        
         
         <div class="chat">
           <pre class="messages" id="js-messages"></pre>
@@ -41,7 +48,7 @@
       <footer>
         <button id="js-video-trigger">映像OFF</button>
         <button id="js-audio-trigger">音声OFF</button>
-        <button id="startButton" disabled>Start</button>
+        <button id="js-media-trigger">PC画面を取得</button>
         <p class="meta" id="js-meta"></p>
       </footer>
     </div>

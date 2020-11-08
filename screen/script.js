@@ -15,15 +15,18 @@ const Peer = window.Peer;
 
   const videoTrigger = document.getElementById('js-video-trigger');
   const audioTrigger = document.getElementById('js-audio-trigger');
-  // const videos = document.getElementById('videos');
+  const mediaTrigger = document.getElementById('js-media-trigger');
+  const shareTrigger = document.getElementById('js-share-trigger');
+  const watchTrigger = document.getElementById('js-watch-trigger');
+  const stopTrigger = document.getElementById('js-stop-trigger');
   const userName = document.getElementById('js-user-name');
-  const videos = document.getElementById('videos');
-  // const localWrapVideo = document.getElementById('local-wrap-video');
+  // const videos = document.getElementById('videos');
+  // const mediaArea = document.getElementById('media');
+  const mediaVideo = document.getElementById('js-media-stream');
+  // const stop = document.getElementById('stop');
+  const localWrapVideo = document.getElementById('local-wrap-video');
 
-  var dummy = document.createElement("div")
-  dummy.id = 'dummy';
-  remoteVideos.appendChild(dummy);
-
+  
   meta.innerText = `
     UA: ${navigator.userAgent}
     SDK: ${sdkSrc ? sdkSrc.src : 'unknown'}
@@ -37,29 +40,43 @@ const Peer = window.Peer;
     () => (roomMode.textContent = getRoomModeByHash())
   );
 
-  // const localStream = await navigator.mediaDevices
-  //   .getUserMedia({
-  //     audio: true,
-  //     video: true,
-  //   })
-  //   .catch(console.error);
   const localStream = await navigator.mediaDevices
-    .getDisplayMedia({
+    .getUserMedia({
+      audio: true,
       video: true,
     })
     .catch(console.error);
-
+    
   // Render local stream
   localVideo.muted = true;
   localVideo.srcObject = localStream;
   localVideo.playsInline = true;
   await localVideo.play().catch(console.error);
 
+  async function getMedia() {
+    console.log("click media");
+    mediaStream = await navigator.mediaDevices
+      .getDisplayMedia({
+        video: true,
+      })
+      .catch(console.error);
+
+    mediaVideo.srcObject = mediaStream;
+    mediaVideo.playsInline = true;
+    await mediaVideo.play().catch(console.error);
+
+    mediaTrigger.style.display= 'none'
+    shareTrigger.style.display= 'inline'
+  };
+
+  mediaTrigger.addEventListener('click', () => {
+    getMedia();
+  });        
+      
   // eslint-disable-next-line require-atomic-updates
   const peer = (window.peer = new Peer({
     key: '649c67ae-3ae7-44b9-b389-41059053788c',
     debug: 3,
-    // username: "a",
   }));
 
   // Register join handler
@@ -69,19 +86,14 @@ const Peer = window.Peer;
     if (!peer.open) {
       return;
     }
-
-
-    // localStream.__proto__.userName = userName.value;
-    // console.log(localStream)
+   
     const room = peer.joinRoom(roomId.value, {
-      mode: getRoomModeByHash(),
+      mode: 'mesh',
       stream: localStream,
     });
 
     room.once('open', () => {
-
       console.log(room)
-
       peer.options.userName = userName.value;
       messages.textContent += `=== ${peer.options.userName}がルームに参加 ===\n`;
       
@@ -98,12 +110,9 @@ const Peer = window.Peer;
       nameTag.className = "local-name";
       nameTag.textContent = peer.options.userName;
 
-      dummy.appendChild(nameTag);
-
+      localWrapVideo.appendChild(nameTag);
     });
     room.on('peerJoin', peerId => {
-      // messages.textContent += `=== ${peerId} joined ===\n`;
-      // messages.textContent += `=== A member joined ===\n`;
       console.log(peerId + " joined");
 
       const data = {
@@ -142,16 +151,10 @@ const Peer = window.Peer;
       wrapVideo.appendChild(nameTag);
       remoteVideos.append(wrapVideo);
 
-
-
       // remoteVideos.append(newVideo);
       await newVideo.play().catch(console.error);
     });
 
-    // room.on('data', ({ data, src }) => {
-    //   // Show a message sent to the room and who sent
-    //   messages.textContent += `${src}: ${data}\n`;
-    // });
     room.on('data', ({ data }) => {
       // Show a message sent to the room and who sent
       console.log(data)
@@ -170,18 +173,13 @@ const Peer = window.Peer;
       } else if (data.type == "leave") {
         messages.textContent += `=== ${data.name}がルームから退出 ===\n`;
       } else if (data.type == "test") {
-        // console.log(data.msg)
         var setId = data.id;
         var setName = data.name;
 
         peer.options[setId] = setName
         console.log(peer)
-        // console.log(room.connections);
-        // console.log(setId);
-        // console.log(typeof(setId));
-        // console.log(room.connections[setId]);
-        // room.connections[setId].userName = setName;
-        // console.log(room)
+      } else if (data.type == "share") {
+        watchTrigger.style.display = 'inline';
       }
     });
 
@@ -193,8 +191,6 @@ const Peer = window.Peer;
       remoteVideo.srcObject.getTracks().forEach(track => track.stop());
       remoteVideo.srcObject = null;
       remoteVideo.remove();
-
-      // messages.textContent += `=== ${peerId} left ===\n`;
     });
 
     // for closing myself
@@ -218,6 +214,7 @@ const Peer = window.Peer;
     leaveTrigger.addEventListener('click', () => room.close(), { once: true });
     videoTrigger.addEventListener('click', onClickVideo);
     audioTrigger.addEventListener('click', onClickAudio);
+    shareTrigger.addEventListener('click', onClickShare);
 
     function onClickSend() {
       // Send message to all of the peers in the room via websocket
@@ -230,12 +227,19 @@ const Peer = window.Peer;
       console.log(data);
       room.send(data);
 
-      // messages.textContent += `${peer.id}: ${localText.value}\n`;
       messages.textContent += `${peer.options.userName}: ${localText.value}\n`;
       localText.value = '';
       console.log(peer);
-      // console.log(peer.options.debug);
-      // console.log(Members);
+    }
+
+    function onClickShare() {
+      const data = {
+        type: "share",
+        name: peer.options.userName,
+        msg: localText.value,
+      }
+      console.log(data);
+      room.send(data);
     }
 
     function onClickVideo() {
@@ -247,9 +251,158 @@ const Peer = window.Peer;
       localStream.getAudioTracks().forEach((track) => (track.enabled = !track.enabled));
       localStream.getAudioTracks().forEach((track) => (audioTrigger.textContent = track.enabled ? "音声OFF" : "音声ON"));
     }
-
-    
+  
   });
+
+
+  shareTrigger.addEventListener('click', () => {
+    if (!peer.open) {
+      return;
+    }
+
+    shareTrigger.style.display = 'none';
+    messages.textContent += "画面を共有しました。";
+
+    stopTrigger.style.display = 'inline';
+
+    const room2 = peer.joinRoom(`${roomId.value}_media`, {
+      mode: 'sfu',
+      stream: mediaStream,
+    });
+
+    room2.once('open', () => {
+      console.log("room2を作成！")
+      console.log(room2)
+      
+      const data = {
+        type: "media",
+        id: room2._peerId,
+        name: peer.options.userName,
+        msg: "",
+      }
+      room2.send(data);
+    });
+
+    room2.on('peerJoin', peerId => {
+      console.log(peerId + " joined");
+    });
+
+    room2.on('data', ({ data }) => {
+      console.log(data)
+    });
+
+    // for closing room members
+    // room2.on('peerLeave', peerId => {
+    //   const remoteVideo = remoteVideos.querySelector(
+    //     `[data-peer-id=${peerId}]`
+    //   );
+    //   remoteVideo.srcObject.getTracks().forEach(track => track.stop());
+    //   remoteVideo.srcObject = null;
+    //   remoteVideo.remove();
+    // });
+
+    // for closing myself
+    room2.once('close', async () => {
+      // sendTrigger.removeEventListener('click', onClickSend);
+      // messages.textContent += `=== ${peer.options.userName}がルームから退出 ===\n`;
+      const data = {
+        type: "leave",
+        name: peer.options.userName,
+        msg: "",
+      }
+      await room2.send(data);
+      mediaVideo.srcObject.getTracks().forEach(track => track.stop());
+      mediaVideo.srcObject = null;
+      // mediaVideo.remove();
+      // .Array.from(remoteVideos.children).forEach(remoteVideo => {
+      //   remoteVideo.srcObject.getTracks().forEach(track => track.stop());
+      //   remoteVideo.srcObject = null;
+      //   remoteVideo.remove();
+
+      stopTrigger.style.display = 'none';
+      mediaTrigger.style.display = 'inline';
+    });
+
+    // leaveTrigger.addEventListener('click', () => room2.close(), { once: true });
+    stopTrigger.addEventListener('click', () => room2.close(), { once: true });
+ 
+  });
+
+
+  watchTrigger.addEventListener('click', () => {
+    if (!peer.open) {
+      return;
+    }
+
+    const room2 = peer.joinRoom(`${roomId.value}_media`, {
+      mode: 'sfu',
+    });
+
+    room2.once('open', () => {
+
+      console.log("room2を作成！")
+      console.log(room2)
+
+      
+      const data = {
+        type: "media",
+        id: room2._peerId,
+        name: peer.options.userName,
+        msg: "",
+      }
+      // console.log(data);
+      room2.send(data);
+    });
+    room2.on('peerJoin', peerId => {
+      console.log(peerId + " joined");
+
+    });
+
+    room2.on('stream', async stream => {
+      console.log("get media!")
+      mediaVideo.srcObject = stream;
+      mediaVideo.playsInline = true;
+
+      await mediaVideo.play().catch(console.error);
+
+      watchTrigger.style.display = 'none';
+    });
+
+    room2.on('data', ({ data }) => {
+      console.log(data)
+    });
+
+    // for closing room members
+    room2.on('peerLeave', peerId => {
+      const mediaVideo = mediaVideos.querySelector(
+        `[data-peer-id=${peerId}]`
+      );
+      mediaVideo.srcObject.getTracks().forEach(track => track.stop());
+      mediaVideo.srcObject = null;
+      mediaVideo.remove();
+    });
+
+    // for closing myself
+    room2.once('close', async () => {
+      sendTrigger.removeEventListener('click', onClickSend);
+      messages.textContent += `=== ${peer.options.userName}がルームから退出 ===\n`;
+      const data = {
+        type: "leave",
+        name: peer.options.userName,
+        msg: "",
+      }
+      await room2.send(data)
+      .Array.from(remoteVideos.children).forEach(remoteVideo => {
+        remoteVideo.srcObject.getTracks().forEach(track => track.stop());
+        remoteVideo.srcObject = null;
+        remoteVideo.remove();
+      });
+    });
+
+    leaveTrigger.addEventListener('click', () => room2.close(), { once: true });
+
+  });
+  
 
   peer.on('error', console.error);
 })();
