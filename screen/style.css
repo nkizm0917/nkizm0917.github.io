@@ -84,7 +84,7 @@ video, #dummy, .remote-streams {
 .room #js-local-stream {
   /* position: absolute; */
   z-index: 999;
-  /* transform: scaleX(-1); */
+  transform: scaleX(-1);
 }
 
 .room .remote-streams {
