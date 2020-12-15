@@ -19,6 +19,8 @@ const Peer = window.Peer;
   const shareTrigger = document.getElementById('js-share-trigger');
   const watchTrigger = document.getElementById('js-watch-trigger');
   const stopTrigger = document.getElementById('js-stop-trigger');
+  const testTrigger = document.getElementById('js-test');
+  const emoji_1 = document.getElementById('emoji-1');
   const userName = document.getElementById('js-user-name');
   // const videos = document.getElementById('videos');
   // const mediaArea = document.getElementById('media');
@@ -26,6 +28,9 @@ const Peer = window.Peer;
   // const stop = document.getElementById('stop');
   const localWrapVideo = document.getElementById('local-wrap-video');
 
+  testTrigger.addEventListener('click', () => {
+    location.reload();
+  })
   
   meta.innerText = `
     UA: ${navigator.userAgent}
@@ -86,6 +91,8 @@ const Peer = window.Peer;
     if (!peer.open) {
       return;
     }
+
+    scrollTo(0, 50);
    
     const room = peer.joinRoom(roomId.value, {
       mode: 'mesh',
@@ -141,6 +148,7 @@ const Peer = window.Peer;
 
       const wrapVideo = document.createElement('div');
       wrapVideo.className = "wrap-video";
+      wrapVideo.id = `${setId}_wrap`;
       
       const nameTag = document.createElement('div');
       nameTag.className = "name";
@@ -208,9 +216,11 @@ const Peer = window.Peer;
         remoteVideo.srcObject = null;
         remoteVideo.remove();
       });
+
     });
 
     sendTrigger.addEventListener('click', onClickSend);
+    emoji_1.addEventListener('click', onClickEmoji_1);
     leaveTrigger.addEventListener('click', () => room.close(), { once: true });
     videoTrigger.addEventListener('click', onClickVideo);
     audioTrigger.addEventListener('click', onClickAudio);
@@ -223,6 +233,22 @@ const Peer = window.Peer;
         type: "msg",
         name: peer.options.userName,
         msg: localText.value,
+      }
+      console.log(data);
+      room.send(data);
+
+      messages.textContent += `${peer.options.userName}: ${localText.value}\n`;
+      localText.value = '';
+      console.log(peer);
+    }
+
+    function onClickEmoji_1() {
+      // Send message to all of the peers in the room via websocket
+      // room.send(localText.value);
+      const data = {
+        type: "msg",
+        name: peer.options.userName,
+        msg: "emoji-1",
       }
       console.log(data);
       room.send(data);

@@ -15,44 +15,33 @@
         <a href="#">mesh</a> / <a href="#sfu">sfu</a>
       </p> -->
       <header>
-        <span id="js-room-mode"></span>
+        <!-- <span id="js-room-mode"></span>
         Room:
         <input type="text" placeholder="ルーム名" size="15" id="js-room-id">
         User:
-        <input type="text" placeholder="ユーザー名" size="15" id="js-user-name">
+        <input type="text" placeholder="ユーザー名" size="15" id="js-user-name"> -->
         <button id="js-join-trigger">参加</button>
-        <button id="js-leave-trigger">退出</button>
+        <!-- <button id="js-leave-trigger">退出</button> -->
       </header>
       <div class="room">
-
-        <div id="media">
-          <video id="js-media-stream"></video>
-          <button id="js-share-trigger">全員に画面を共有</button>
-          <button id="js-watch-trigger">共有された画面を表示</button>
-          <button id="js-stop-trigger">共有を停止</button>
+        <div id="videos">
+          <!-- <div class="wrap-video" id="local-wrap-video">
+            <video id="js-local-stream"></video>
+          </div> -->
+            <div class="remote-streams" id="js-remote-streams"></div>
         </div>
         
-        <div id="videos">
-          <div class="wrap-video" id="local-wrap-video">
-            <video id="js-local-stream"></video>
-          </div>
-          <div class="remote-streams" id="js-remote-streams"></div>
-        </div>        
         
-        <div class="chat">
+        <!-- <div class="chat">
           <pre class="messages" id="js-messages"></pre>
           <input type="text" placeholder="メッセージを入力" size="20" id="js-local-text">
           <button id="js-send-trigger">送信</button>
-          <button class="emoji" id="emoji-1"><img src="../img/niko.svg"></button>
-        </div>
-        
+        </div> -->
       </div>
       <footer>
-        <button id="js-video-trigger">映像OFF</button>
+        <!-- <button id="js-video-trigger">映像OFF</button>
         <button id="js-audio-trigger">音声OFF</button>
-        <button id="js-media-trigger">PC画面を取得</button>
-        <button id="js-test">Test</button>
-        <p class="meta" id="js-meta"></p>
+        <p class="meta" id="js-meta"></p> -->
       </footer>
     </div>
     <script src="//cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>

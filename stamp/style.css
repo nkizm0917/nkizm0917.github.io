@@ -8,7 +8,7 @@ body { margin: 0; }
   min-height: 100vh;
   position: relative;
   padding-top: 60px;
-  padding-bottom: 50px;
+  padding-bottom: 170px;
   padding-left: 30px;
   padding-right: 30px;
   box-sizing: border-box;
@@ -45,14 +45,18 @@ header input, header button {
   gap: 10px;
 }
 
-video, #dummy {
+.stamp-area, #dummy {
   width: calc(50vw - 210px);
   height: calc(calc(50vw - 210px) * 3 / 4);
-  max-height: calc(50vh - 60px);
+  max-height: calc(50vh - 120px);
 }
 
-video, #dummy, .remote-streams {
+/* .stamp-area, #dummy, .remote-streams {
   background: #111111;
+} */
+
+.stamp-area {
+  background: #eee;
 }
 
 .room .messages {
@@ -65,8 +69,9 @@ video, #dummy, .remote-streams {
 .room #videos {
   position: relative;
   /* padding: 15px; */
-  background: #111111;
-  height: calc(100vh - 60px);
+  /* background: #111111; */
+  /* height: calc(100vh - 180px); */
+  border: solid 15px #111111;
 }
 
 .room #js-local-stream {
@@ -75,6 +80,7 @@ video, #dummy, .remote-streams {
   transform: scaleX(-1);
   top: 15px;
   left: 15px;
+  /* height: 0; */
 }
 
 .room .remote-streams {
@@ -86,9 +92,13 @@ video, #dummy, .remote-streams {
   position: relative;
   width: calc(50vw - 210px);
   /* margin: 0 15px 15px 0; */
-  margin: 15px 0 0 15px;
-
+  /* margin: 15px 0 0 15px; */
 }
+
+#local-wrap-video {
+  height: 0;
+}
+
 .name, .local-name {
   background-color: #111111;
   color: white;
@@ -104,6 +114,13 @@ video, #dummy, .remote-streams {
   left: -3px;
 }
 
+#videos img {
+  height: 300px;
+}
+
+video {
+  display: none;
+}
 
 /* chat */
 .chat {
@@ -118,7 +135,7 @@ video, #dummy, .remote-streams {
 footer {
   position: absolute;
   bottom: 10px;
-  height: 30px;
+  height: 150px;
 }
 
 footer button {
@@ -128,13 +145,13 @@ footer button {
 
 /* component */
 button {
-  background-color: #99a8b4;
+  background-color: rgb(153, 168, 180);
   color: white;
   border: 0;
 }
 button:hover {
   cursor: pointer;
-  background-color: #3e9eec;
+  background-color:  rgb(62, 158, 236);
 }
 button:focus {
 	outline:0;
@@ -143,4 +160,11 @@ button:focus {
 	outline:0;
 }
 
+.stamp {
+  padding: 0;
+  border: none;
+  background: transparent;
+  height: 72px; 
+  width: 72px;
+}
 

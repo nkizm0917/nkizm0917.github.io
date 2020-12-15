@@ -24,38 +24,60 @@
         <button id="js-leave-trigger">退出</button>
       </header>
       <div class="room">
-
-        <div id="media">
-          <video id="js-media-stream"></video>
-          <button id="js-share-trigger">全員に画面を共有</button>
-          <button id="js-watch-trigger">共有された画面を表示</button>
-          <button id="js-stop-trigger">共有を停止</button>
-        </div>
-        
         <div id="videos">
           <div class="wrap-video" id="local-wrap-video">
             <video id="js-local-stream"></video>
           </div>
-          <div class="remote-streams" id="js-remote-streams"></div>
-        </div>        
+            <div class="remote-streams" id="js-remote-streams"></div>
+        </div>
+        
         
         <div class="chat">
           <pre class="messages" id="js-messages"></pre>
           <input type="text" placeholder="メッセージを入力" size="20" id="js-local-text">
           <button id="js-send-trigger">送信</button>
-          <button class="emoji" id="emoji-1"><img src="../img/niko.svg"></button>
+
+          <!-- <div>
+            <h3>Make a call</h3> -->
+            <!-- <form> -->
+      
+              <!-- <input type="text" placeholder="Username" id="username"><br>
+              <input type="text" placeholder="Join room..." id="join-room"> -->
+      
+            <!-- <button id="join" class="pure-button pure-button-success">Join</button> -->
+            <!-- </form> -->
+            <!-- <p><strong>Warning:</strong> You may connect with people you don't know if you both use the same room name.</p> -->
+            <!-- <p><strong>注意：</strong>同じルーム名を使用した場合、知らない人と接続する可能性があります。</p> -->
+            
+          <!-- </div> -->
+      
+          <!-- Call in progress -->
+          <div id="step3">
+            <!-- <p>Currently in room <span id="room-id">...</span></p>
+            <p><a href="#" class="pure-button pure-button-error" id="end-call">End call</a></p> -->
+      
+            <div id="output"></div>
+          </div>
+
         </div>
-        
       </div>
       <footer>
         <button id="js-video-trigger">映像OFF</button>
         <button id="js-audio-trigger">音声OFF</button>
-        <button id="js-media-trigger">PC画面を取得</button>
-        <button id="js-test">Test</button>
+        <button id="js-test-trigger">テスト</button>
         <p class="meta" id="js-meta"></p>
       </footer>
     </div>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>  
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js"></script>
+    
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
     <script src="./script.js"></script>
+    <!-- <script src="./rcg.js"></script> -->
+
   </body>
 </html>

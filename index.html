@@ -1,16 +1,36 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <body>
-    <p>
-        <a href="./room/index.html">Room</a>
-    </p>
-    <p>
-        <a href="./screen/index.html">Screen Share</a>
-    </p>
+  <p><a href="./room/index.html">Room</a></p>
+  <p><a href="./screen/index.html">Screen Share</a></p>
+  <p><a href="./stamp/index.html">Stamp</a></p>
+  <p><a href="./speech-recognition/index.html">Speech Recogintion</a></p>
+
+  <div>
+    <form id="setting">
+      <div>
+        <input type="radio" name="setting1" id="setting1-a" value="a" checked><label for="setting1-a">a</label>
+        <input type="radio" name="setting1" id="setting1-b" value="b"><label for="setting1-b">b</label>
+        <input type="radio" name="setting1" id="setting1-c" value="c"><label for="setting1-c">c</label>
+      </div>
+      <div>
+        <input type="radio" name="setting2" id="setting2-a" value="a" checked><label for="setting2-a">a</label>
+        <input type="radio" name="setting2" id="setting2-b" value="b"><label for="setting2-b">b</label>
+        <input type="radio" name="setting2" id="setting2-c" value="c"><label for="setting2-c">c</label>
+      </div>
+
+      <div>
+        <input type="range" name="setting3" id="setting3" min="1" max="5" value="3">
+        <label for="setting3">A</label>
+      </div>
+    </form>
+  </div>
+  <button type="button" id="start-button">スタート</button>
+  <script src="index.js"></script>
 </body>
 </html>

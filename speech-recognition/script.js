@@ -1,3 +1,25 @@
+// Firebase
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+var firebaseConfig = {
+  apiKey: "AIzaSyC_ErVpCsAKuStNckz9ZRJSQyD2TLhL5do",
+  authDomain: "meeting-31b2f.firebaseapp.com",
+  projectId: "meeting-31b2f",
+  storageBucket: "meeting-31b2f.appspot.com",
+  messagingSenderId: "951454481920",
+  appId: "1:951454481920:web:5d7d4e4de4581b95f4e2e5",
+  measurementId: "G-5CKSC1TXYR"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+
+//Msg送信準備
+const newPostRef = firebase.database();
+
+
+
+// SkyWay
 const Peer = window.Peer;
 
 (async function main() {
@@ -85,10 +107,15 @@ const Peer = window.Peer;
       }
       room.send(data);
 
+      const rcgText = document.createElement('p');
+      rcgText.className = "rcg-text";
+      rcgText.id = "local_text";
+
       const nameTag = document.createElement('div');
       nameTag.className = "local-name";
       nameTag.textContent = peer.options.userName;
 
+      dummy.appendChild(rcgText);
       dummy.appendChild(nameTag);
 
     });
@@ -124,6 +151,11 @@ const Peer = window.Peer;
       const wrapVideo = document.createElement('div');
       wrapVideo.className = "wrap-video";
       wrapVideo.id = `${setId}_wrap`;
+
+      const rcgText = document.createElement('p');
+      rcgText.className = "rcg-text";
+      rcgText.id = `${setId}_text`;
+      // rcgText.innerText = ""
       
       const nameTag = document.createElement('div');
       nameTag.className = "name";
@@ -131,6 +163,7 @@ const Peer = window.Peer;
       nameTag.textContent = name;
 
       wrapVideo.appendChild(newVideo);
+      wrapVideo.appendChild(rcgText);
       wrapVideo.appendChild(nameTag);
       remoteVideos.append(wrapVideo);
 
@@ -244,4 +277,132 @@ const Peer = window.Peer;
   });
 
   peer.on('error', console.error);
+
+
+  // 音声認識
+  let room = "room1";
+  // let room = "room2";
+
+  const username = document.getElementById("js-user-name");
+  const output = document.getElementById("output");
+
+
+  //Msg受信処理
+  function text() {
+    newPostRef.ref(room).on("child_added", function (data) {
+      const v = data.val();
+      const k = data.key;
+      let str = "";
+    
+      str += '<div id="' + k + '" class="msg_main">'
+      str += '<div class="msg_left">';
+      str += '<div class=""><img src="img/icon_person.png" alt="" class="icon ' + v.username +
+        '" width="30"></div>';
+      str += '<div class="msg">';
+      str += '<div class="msg_name">' + v.username + '</div>';
+      str += '<div class="msg_text">' + v.text + '</div>';
+      str += '</div>';
+      str += '</div>';
+      str += '<div class="msg_right">';
+      str += '<div class="time">' + v.time + '</div>';
+      str += '</div>';
+      str += '</div>';
+    
+      output.innerHTML += str;
+
+      $("#output").scrollTop( $("#output")[0].scrollHeight );
+
+
+      const rcgTextArea = document.getElementById(`${v.id}_text`)
+      if (v.username == username.value) {
+        console.log("local-text")
+        const localText = document.getElementById("local_text");
+        localText.textContent = v.text;
+      } else if (rcgTextArea) {
+        rcgTextArea.textContent = v.text;
+      } else {
+        console.log("No area...");
+      }
+
+      const cleanUp = function() {
+        console.log("Clean up!");
+        rcgTexts = document.getElementsByClassName("rcg-text");
+        const rcgTextArray = Array.prototype.slice.call(rcgTexts);
+        console.log(rcgTextArray);
+        for (let i = 0; i < rcgTextArray.length; i += 1) {
+          rcgTextArray[i].textContent = null;
+        }
+      }
+      setTimeout(cleanUp, 5000);
+    
+    });
+  }
+
+  //時間を取得する関数
+  function time() {
+    var date = new Date();
+    var hh = ("0" + date.getHours()).slice(-2);
+    var min = ("0" + date.getMinutes()).slice(-2);
+    var sec = ("0" + date.getSeconds()).slice(-2);
+
+    var time = hh + ":" + min + ":" + sec;
+    return time;
+  }
+
+  //音声認識処理
+  const speech = new webkitSpeechRecognition();
+  speech.lang = 'ja-JP';
+
+  // const join = document.getElementById('join');
+  // const joinTrigger = document.getElementById('js-join-trigger');
+  // const content = document.getElementById('content');
+
+  joinTrigger.addEventListener('click', function () {
+
+      room = document.getElementById('js-room-id').value;
+      
+      speech.start();
+
+      text();
+  });
+
+  // const endcall = document.getElementById('end-call');
+  // const leaveTrigger = document.getElementById('js-leave-trigger');
+  leaveTrigger.addEventListener('click', function(){
+    location.reload();
+  })
+
+  speech.onresult = function (e) {
+      speech.stop();
+      if (e.results[0].isFinal) {
+        var autotext = e.results[0][0].transcript
+        console.log(e);
+        console.log(autotext);
+
+        newPostRef.ref(room).push({
+          username: username.value,
+          id: peer.id,
+          text: autotext,
+          time: time()
+        });      
+      }
+  }
+
+  speech.onend = () => {
+      speech.start()
+  };
+
+
+  const test = document.getElementById("js-test-trigger")
+  test.addEventListener('click', () => {
+    console.log(peer)
+    console.log(peer.id)
+    newPostRef.ref(room).push({
+      username: username.value,
+      id: peer.id,
+      text: "テスト",
+      time: time()
+    });
+  })
+
 })();

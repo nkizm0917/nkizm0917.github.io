@@ -24,34 +24,33 @@
         <button id="js-leave-trigger">退出</button>
       </header>
       <div class="room">
-
-        <div id="media">
-          <video id="js-media-stream"></video>
-          <button id="js-share-trigger">全員に画面を共有</button>
-          <button id="js-watch-trigger">共有された画面を表示</button>
-          <button id="js-stop-trigger">共有を停止</button>
-        </div>
-        
         <div id="videos">
           <div class="wrap-video" id="local-wrap-video">
             <video id="js-local-stream"></video>
+            <div class="stamp-area">
+              <img id="local-stamp" src="../img/normal.svg"></img>
+            </div>
           </div>
-          <div class="remote-streams" id="js-remote-streams"></div>
-        </div>        
+            <div class="remote-streams" id="js-remote-streams"></div>
+        </div>
+        
         
         <div class="chat">
           <pre class="messages" id="js-messages"></pre>
           <input type="text" placeholder="メッセージを入力" size="20" id="js-local-text">
           <button id="js-send-trigger">送信</button>
-          <button class="emoji" id="emoji-1"><img src="../img/niko.svg"></button>
         </div>
-        
       </div>
       <footer>
-        <button id="js-video-trigger">映像OFF</button>
-        <button id="js-audio-trigger">音声OFF</button>
-        <button id="js-media-trigger">PC画面を取得</button>
-        <button id="js-test">Test</button>
+        <!-- <button id="js-video-trigger">映像OFF</button> -->
+        <!-- <button id="js-audio-trigger">音声OFF</button> -->
+        <button class="stamp" id="stamp-1" value="normal"><img src="../img/normal.svg"></button>
+        <button class="stamp" id="stamp-2" value="niko"><img src="../img/niko.svg"></button>
+        <button class="stamp" id="stamp-3" value="bad"><img src="../img/bad.svg"></button>
+        <button class="stamp" id="stamp-4" value="crap"><img src="../img/crap.svg"></button>
+        <button class="stamp" id="stamp-5" value="good"><img src="../img/good.svg"></button>
+        <button class="stamp" id="stamp-6" value="raise"><img src="../img/raise.svg"></button>
+        <button id="test">test</button>
         <p class="meta" id="js-meta"></p>
       </footer>
     </div>
