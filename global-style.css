@@ -1,0 +1,84 @@
+/* normalize */
+body { margin: 0; }
+
+/* global styles */
+html {
+  overflow-x: hidden;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 100vh;
+  position: relative;
+  padding-top: 60px;
+  padding-bottom: 50px;
+  padding-left: 30px;
+  padding-right: 30px;
+  box-sizing: border-box;
+  background: #f6fbff;
+}
+
+#js-room-mode {
+  display: none;
+}
+
+.meta {
+  display: none;
+}
+
+/* header */
+#header {
+  height: 50px;
+  font-size: 18px;
+  position: absolute;
+  top: 10px;
+  width: 100%;
+}
+
+#header input, #header button {
+  font-size: 18px;
+}
+
+#to-top {
+  display: block;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  text-align: right;
+}
+
+/* footer */
+#footer {
+  position: absolute;
+  bottom: 10px;
+  height: 30px;
+}
+
+#footer button {
+  font-size: 18px;
+}
+
+
+/* component */
+button {
+  background-color: #99a8b4;
+  color: white;
+  border: 0;
+}
+button:hover {
+  cursor: pointer;
+  background-color: #3e9eec;
+}
+button:focus {
+	outline:0;
+}
+button:focus {
+	outline:0;
+}
+
+.name, .local-name {
+  background: rgba(17, 17, 17, 0.8);
+  color: white;
+  font-size: 13px;
+}

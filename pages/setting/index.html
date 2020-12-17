@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="setting-style.css">
+</head>
+<body>
+  <form id="setting">
+    <div id="setting-area">
+      <label for="title">音声</label>
+      <div class="inline-radio">
+        <div><input type="radio" name="audio" value="sub"><label>あり（字幕つき）</label></div>
+        <div><input type="radio" name="audio" value="yes" checked><label>あり</label></div>
+        <div><input type="radio" name="audio" value="no"><label>なし</label></div>
+      </div>
+      <label for="screen">映像</label>
+      <div class="inline-radio">
+        <div><input type="radio" name="screen" value="video" checked><label>ビデオ</label></div>
+        <div><input type="radio" name="screen" value="stamp"><label>スタンプ</label></div>
+        <div><input type="radio" name="screen" value="no"><label>なし</label></div>
+      </div>
+      <label for="chat">チャット</label>
+      <div class="inline-radio">
+        <div><input type="radio" name="chat" value="yes" checked><label>あり</label></div>
+        <div><input type="radio" name="chat" value="no"><label>なし</label></div>
+      </div>
+      <label for="share">画面共有</label>
+      <div class="inline-radio">
+        <div><input type="radio" name="share" value="yes"><label>あり</label></div>
+        <div><input type="radio" name="share" value="no" checked><label>なし</label></div>
+      </div>
+    </div>
+    <button type="button" id="start-button">OK</button>
+  </form>
+
+  <script src="setting.js"></script>
+</body>
+</html>

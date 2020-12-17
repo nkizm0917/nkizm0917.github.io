@@ -1,0 +1,100 @@
+#header #to-top {
+  right: 60px;
+}
+
+#videos video {
+  height: calc(33vh - 40px)
+}
+
+video, #dummy, .remote-streams {
+  background: #111111;
+}
+
+#media video {
+  max-width: 100%;
+}
+
+
+/* room */
+
+
+.room .messages {
+  background-color: #eee;
+  min-height: 100px;
+  padding: 8px;
+  margin-top: 0;
+}
+
+.room #videos {
+  position: relative;
+  padding: 10px;
+}
+
+.room #js-local-stream {
+  z-index: 999;
+  transform: scaleX(-1);
+}
+
+
+.room #dummy {
+  position: relative;
+}
+
+
+/* media */
+#media {
+  background: #111;
+  padding: 10px;
+  text-align: center;
+  display: none;
+}
+
+.wrap-video {
+  position: relative;
+  margin: 0 0 5px;
+}
+
+.name, .local-name {
+  position: absolute;
+  bottom: 5px;
+  padding: 2px;
+  z-index: 9999;
+}
+
+
+#videos {
+  background: #111111;
+  height: calc(100vh - 80px);
+  display: inline-block;
+}
+
+video {
+  max-height: calc(100vh - 110px);
+  /* margin: 15px; */
+}
+
+
+/* chat */
+.chat {
+  padding: 10px;
+}
+
+.chat input, .chat button{
+  font-size: 16px;
+}
+
+
+#js-share-trigger, #js-watch-trigger, #js-stop-trigger {
+  display: none;
+}
+
+.rcg-text {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  font-size: 14px;
+  z-index: 999;
+  text-align: center;
+  color: white;
+  background: rgba(0,0,0,0.5);
+}

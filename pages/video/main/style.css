@@ -1,16 +1,28 @@
 /* room */
-.room {
+/* .room {
   display: grid;
   grid-template-columns: 1fr 280px;
   gap: 10px;
+} */
+
+#header {
+  max-width: 1490px;
 }
 
-video, #dummy {
-  width: calc(50vw - 210px);
-  height: calc(calc(50vw - 210px) * 3 / 4);
+video, #dummy, .wrap-video:not(#local-wrap-video) {
+  width: calc(50vw - 60px);
+  height: calc(calc(50vw - 60px) * 3 / 4);
   max-height: calc(50vh - 60px);
+  max-width: 725px;
 }
 
+#dummy, .wrap-video:not(#local-wrap-video) {
+  position: relative;
+  /* width: calc(50vw - 210px); */
+  /* margin: 0 15px 15px 0; */
+  margin: 15px 0 0 15px;
+
+}
 video, #dummy, .remote-streams {
   background: #111111;
 }
@@ -22,11 +34,13 @@ video, #dummy, .remote-streams {
   margin-top: 0;
 }
 
-.room #videos {
+.room, #videos {
   position: relative;
   /* padding: 15px; */
   background: #111111;
   height: calc(100vh - 60px);
+  /* max-width: calc(100vw - 375px); */
+  max-width: 1490px;
 }
 
 .room #js-local-stream {
@@ -42,25 +56,16 @@ video, #dummy, .remote-streams {
   flex-wrap: wrap;
 }
 
-#dummy, .wrap-video:not(#local-wrap-video) {
-  position: relative;
-  width: calc(50vw - 210px);
-  /* margin: 0 15px 15px 0; */
-  margin: 15px 0 0 15px;
-
-}
 .name, .local-name {
-  background-color: #111111;
-  color: white;
-  font-size: 13px;
   position: absolute;
-  bottom: 0px;
-  padding: 2px;
+  bottom: -2px;
+  padding: 1px 5px;
+  height: 18px;
   z-index: 9999;
 }
 
 .local-name {
-  bottom: -5px;
+  /* bottom: -5px; */
   left: -3px;
 }
 

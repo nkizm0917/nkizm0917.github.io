@@ -1,43 +1,3 @@
-/* normalize */
-body { margin: 0; }
-
-/* global styles */
-.container {
-  margin-left: auto;
-  margin-right: auto;
-  min-height: 100vh;
-  position: relative;
-  padding-top: 60px;
-  padding-bottom: 50px;
-  padding-left: 30px;
-  padding-right: 30px;
-  box-sizing: border-box;
-  background: #f6fbff;
-}
-
-#js-room-mode {
-  display: none;
-}
-
-.meta {
-  text-align: center;
-  font-size: .8rem;
-  color: gray;
-  display: none;
-}
-
-/* header */
-header {
-  height: 50px;
-  font-size: 18px;
-  position: absolute;
-  top: 10px;
-}
-
-header input, header button {
-  font-size: 18px;
-}
-
 /* room */
 .room {
   display: grid;
@@ -123,41 +83,12 @@ video, #dummy, .remote-streams {
 .chat input, .chat button{
   font-size: 16px;
 }
-
+/* 
 #step3 {
   margin-top: 50px;
   max-height: calc(100vh - 350px);
   overflow: auto;
-}
+} */
 
-
-/* footer */
-footer {
-  position: absolute;
-  bottom: 10px;
-  height: 30px;
-}
-
-footer button {
-  font-size: 18px;
-}
-
-
-/* component */
-button {
-  background-color: rgb(153, 168, 180);
-  color: white;
-  border: 0;
-}
-button:hover {
-  cursor: pointer;
-  background-color:  rgb(62, 158, 236);
-}
-button:focus {
-	outline:0;
-}
-button:focus {
-	outline:0;
-}
 
 
