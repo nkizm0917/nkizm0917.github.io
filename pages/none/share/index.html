@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SkyWay - Room example</title>
+    <!-- <link rel="stylesheet" href="../_shared/style.css"> -->
+    <link rel="stylesheet" href="../../../global-style.css">
+    <link rel="stylesheet" href="./style.css" id="style">
+    <link rel="stylesheet" href="./style-sharing.css" disabled="true" id="style-sharing">
+  </head>
+  <body>
+    <div class="container">
+      <header-elem id="header"></header-elem>
+      <div class="room">
+        <share-elem id="media"></share-elem>  
+        <video-elem id="videos"></video-elem>  
+        <!-- <chat-elem class="chat"></chat-elem> -->
+      </div>
+      <footer-elem id="footer"></footer-elem>
+    </div>
+
+    <script src="../../../modules/header.js"></script>
+    <script src="../../../modules/footer.js"></script>
+    <script src="../../../modules/share.js"></script>
+    <script src="../../../modules/video.js"></script>
+    <!-- <script src="../../../modules/chat.js"></script> -->
+    <script src="//cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
