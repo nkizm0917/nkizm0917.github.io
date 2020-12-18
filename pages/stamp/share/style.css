@@ -131,3 +131,10 @@ video {
   /* height: 280px;
   width: 280px; */
 }
+
+.container {
+  padding-bottom: 110px;
+}
+#footer {
+  height: 80px;
+}
