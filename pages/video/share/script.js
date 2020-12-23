@@ -6,7 +6,6 @@ const Peer = window.Peer;
   const leaveTrigger = document.getElementById('js-leave-trigger');
   const remoteVideos = document.getElementById('js-remote-streams');
   const roomId = document.getElementById('js-room-id');
-
   const videoTrigger = document.getElementById('js-video-trigger');
   const audioTrigger = document.getElementById('js-audio-trigger');
   const shareTrigger = document.getElementById('js-share-trigger');
@@ -16,30 +15,30 @@ const Peer = window.Peer;
   const localWrapVideo = document.getElementById('local-wrap-video');
   const footer = document.getElementById('footer');
   const confirm = document.getElementById('confirm');
-
-  const localStream = await navigator.mediaDevices
-    .getUserMedia({
-      audio: true,
-      video: true,
-    })
-    .catch(console.error);
-    
-  // Render local stream
-  localVideo.muted = true;
-  localVideo.srcObject = localStream;
-  localVideo.playsInline = true;
-  await localVideo.play().catch(console.error);
-
+  
+  // ボタン追加
   const stopTrigger = document.createElement('button');
   stopTrigger.id = 'js-stop-trigger';
   stopTrigger.textContent = '共有を停止'
   footer.appendChild(stopTrigger);
-
   const mediaTrigger = document.createElement('button');
   mediaTrigger.id = "js-media-trigger"
   mediaTrigger.textContent = "PC画面を取得"
   footer.appendChild(mediaTrigger)
 
+  // localStream取得・追加  
+  const localStream = await navigator.mediaDevices
+    .getUserMedia({
+      audio: true,
+      video: true,
+    })
+    .catch(console.error);    
+  localVideo.muted = true;
+  localVideo.srcObject = localStream;
+  localVideo.playsInline = true;
+  await localVideo.play().catch(console.error);
+
+  // 画面取得・追加
   async function getMedia() {
     console.log("click media");
     mediaStream = await navigator.mediaDevices
@@ -47,7 +46,6 @@ const Peer = window.Peer;
         video: true,
       })
       .catch(console.error);
-
     mediaVideo.srcObject = mediaStream;
     mediaVideo.playsInline = true;
     await mediaVideo.play().catch(console.error);
@@ -55,21 +53,16 @@ const Peer = window.Peer;
     mediaTrigger.style.display= 'none'
     shareTrigger.style.display= 'block'
   };
-
   mediaTrigger.addEventListener('click', () => {
     getMedia();
   });
       
-  // eslint-disable-next-line require-atomic-updates
   const peer = (window.peer = new Peer({
     key: '649c67ae-3ae7-44b9-b389-41059053788c',
     debug: 3,
   }));
 
-  // Register join handler
   joinTrigger.addEventListener('click', () => {
-    // Note that you need to ensure the peer has connected to signaling server
-    // before using methods of peer instance.
     if (!peer.open) {
       return;
     }
@@ -96,33 +89,30 @@ const Peer = window.Peer;
       const nameTag = document.createElement('div');
       nameTag.className = "local-name";
       nameTag.textContent = peer.options.userName;
-
       localWrapVideo.appendChild(nameTag);
     });
+
     room.on('peerJoin', peerId => {
       console.log(peerId + " joined");
-
       const data = {
-        type: "test",
+        type: "info",
         id: room._peerId,
         name: peer.options.userName,
-        msg: "test",
+        msg: "",
       }
       room.send(data);
     });
 
-    // Render remote stream for new peer join in the room
     room.on('stream', async stream => {
+      console.log(stream)
+      const setId = stream.peerId
+      const userName = peer.options[setId]
+
       const newVideo = document.createElement('video');
+      newVideo.id = `${setId}_video`;
       newVideo.srcObject = stream;
       newVideo.playsInline = true;
       newVideo.setAttribute('data-peer-id', stream.peerId);
-      console.log(stream)
-      console.log(stream.peerId)
-      var setId = stream.peerId
-      console.log(peer)
-      console.log(peer.options[setId])
-      var name = peer.options[setId]
 
       const wrapVideo = document.createElement('div');
       wrapVideo.className = "wrap-video";
@@ -131,7 +121,7 @@ const Peer = window.Peer;
       const nameTag = document.createElement('div');
       nameTag.className = "name";
       nameTag.id = `${setId}_tag`;
-      nameTag.textContent = name;
+      nameTag.textContent = userName;
 
       wrapVideo.appendChild(newVideo);
       wrapVideo.appendChild(nameTag);
@@ -141,31 +131,31 @@ const Peer = window.Peer;
     });
 
     room.on('data', ({ data }) => {
-      // Show a message sent to the room and who sent
       console.log(data)
-      if (data.type == "join") {
-        var setId = data.id;
-        var setName = data.name;
-        peer.options[setId] = setName
-        console.log(peer)
-
-        const nameTag = document.getElementById(setId + '_tag');
-        nameTag.textContent = setName;
-        
-      } else if (data.type == "test") {
-        var setId = data.id;
-        var setName = data.name;
-
-        peer.options[setId] = setName
-        console.log(peer)
-      } else if (data.type == "share") {
-        watchTrigger.style.display = 'block';
-      } else if (data.type == "share-stop") {
-        confirm.style.display = "block";
+      switch (data.type) {
+        case "join":
+          var setId = data.id;
+          var setName = data.name;
+          peer.options[setId] = setName;
+          const nameTag = document.getElementById(setId + '_tag');
+          nameTag.textContent = setName;
+          break;
+        case "info":
+          var setId = data.id;
+          var setName = data.name;
+          peer.options[setId] = setName;
+          break;
+        case "share":
+          watchTrigger.style.display = 'block';
+          break;
+        case "share-stop":
+          confirm.style.display = "block";
+          break;
+        default:
+          console.log("No type...");
       }
     });
 
-    // for closing room members
     room.on('peerLeave', peerId => {
       const remoteVideo = remoteVideos.querySelector(
         `[data-peer-id=${peerId}]`
@@ -173,22 +163,23 @@ const Peer = window.Peer;
       remoteVideo.srcObject.getTracks().forEach(track => track.stop());
       remoteVideo.srcObject = null;
       remoteVideo.remove();
+
+      const wrap = document.getElementById(`${peerId}_wrap`);
+      wrap.remove();
     });
 
     // for closing myself
     room.once('close', async () => {
-      const data = {
-        type: "leave",
-        name: peer.options.userName,
-        msg: "",
-      }
-      await room.send(data)
-      .Array.from(remoteVideos.children).forEach(remoteVideo => {
+      const videos = document.querySelectorAll('#js-remote-streams video');
+      const wraps = document.querySelectorAll('#js-remote-streams .wrap-video');
+      videos.forEach(remoteVideo => {
         remoteVideo.srcObject.getTracks().forEach(track => track.stop());
         remoteVideo.srcObject = null;
         remoteVideo.remove();
       });
-
+      wraps.forEach(wrap => {
+        wrap.remove();
+      });
     });
 
     leaveTrigger.addEventListener('click', () => room.close(), { once: true });
@@ -206,7 +197,11 @@ const Peer = window.Peer;
       console.log(data);
       room.send(data);
 
-      document.getElementById('style').disabled = true;
+      const nowSharing = document.createElement('p');
+      nowSharing.textContent = "画面共有中";
+      nowSharing.id = "now-sharing"
+      localWrapVideo.appendChild(nowSharing);
+
       document.getElementById('style-sharing').disabled = false;
     }
 
@@ -229,7 +224,7 @@ const Peer = window.Peer;
   
   });
 
-
+  // 共有画面送信
   shareTrigger.addEventListener('click', () => {
     if (!peer.open) {
       return;
@@ -260,11 +255,6 @@ const Peer = window.Peer;
       console.log(peerId + " joined");
     });
 
-    room2.on('data', ({ data }) => {
-      console.log(data)
-    });
-
-
     room2.once('close', async () => {
       const data = {
         type: "leave",
@@ -279,15 +269,13 @@ const Peer = window.Peer;
       stopTrigger.style.display = 'none';
       mediaTrigger.style.display = 'inline';
 
-      document.getElementById('style').disabled = false;
       document.getElementById('style-sharing').disabled = true;
     });
 
     stopTrigger.addEventListener('click', () => room2.close(), { once: true });
- 
-  });
+   });
 
-
+  // 共有画面受信
   watchTrigger.addEventListener('click', () => {
     if (!peer.open) {
       return;
@@ -298,7 +286,6 @@ const Peer = window.Peer;
     });
 
     room2.once('open', () => {
-
       console.log("room2を作成！")
       console.log(room2)
       
@@ -310,9 +297,9 @@ const Peer = window.Peer;
       }
       room2.send(data);
     });
+
     room2.on('peerJoin', peerId => {
       console.log(peerId + " joined");
-
     });
 
     room2.on('stream', async stream => {
@@ -327,25 +314,26 @@ const Peer = window.Peer;
 
     room2.on('data', ({ data }) => {
       console.log(data)
-      if (data.type == "leave") {
-        confirm.style.display = 'block';
+      switch (data.type) {
+        case "leave":
+          confirm.style.display = 'block';
+          break;
+        default:
+          console.log("No type...");
       }
     });
-
 
     room2.once('close', async () => {
       mediaVideo.srcObject = null;
     });
 
+    // 共有終了確認
     const confirmTrigger = document.getElementById('js-confirm-trigger');
-    console.log(confirmTrigger);
     confirmTrigger.addEventListener('click', () => {
       room2.close(), { once: true }
       confirm.style.display = 'none'
     });
-
   });
   
-
   peer.on('error', console.error);
 })();

@@ -1,0 +1,65 @@
+/* header */
+#header {
+  width: calc(calc(400vh / 3) - 95px);
+  max-width: calc(100vw - 75px - 4px);
+}
+
+/* room */
+.room, #videos {
+  position: relative;
+  background: #111111;
+  height: calc(100vh - 60px);
+  max-width: calc(calc(400vh / 3) - 95px);
+}
+
+video, #dummy, .wrap-video:not(#local-wrap-video) {
+  width: calc(50vw - 60px);
+  height: calc(calc(50vw - 60px) * 3 / 4);
+  max-height: calc(50vh - 52.5px);
+  max-width: calc(calc(50vh - 52.5px) * 4 / 3);
+}
+
+#dummy, .wrap-video:not(#local-wrap-video) {
+  position: relative;
+  margin: 15px 0 0 15px;
+}
+
+video, #dummy, #js-remote-streams {
+  background: #111111;
+}
+
+#js-local-stream {
+  position: absolute;
+  z-index: 999;
+  transform: scaleX(-1);
+  top: 15px;
+  left: 15px;
+}
+
+#js-remote-streams {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.name, .local-name {
+  position: absolute;
+  bottom: -2px;
+  padding: 1px 5px;
+  height: 18px;
+  z-index: 9999;
+}
+
+.local-name {
+  left: -3px;
+}
+
+.rcg-text {
+  position: absolute;
+  bottom: 25px;
+  width: 100%;
+  font-size: 16px;
+  z-index: 999;
+  text-align: center;
+  color: white;
+  background: rgba(0,0,0,0.4);
+}

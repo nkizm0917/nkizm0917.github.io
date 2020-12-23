@@ -24,7 +24,6 @@ video, #dummy, .remote-streams {
 
 .room #videos {
   position: relative;
-  /* padding: 15px; */
   background: #111111;
   height: calc(100vh - 60px);
 }

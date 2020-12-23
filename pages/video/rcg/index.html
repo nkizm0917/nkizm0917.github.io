@@ -3,26 +3,24 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SkyWay - Room example</title>
+    <title>SkyWay - Room</title>
     <link rel="stylesheet" href="../../../global-style.css">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="../styles/main.css">
   </head>
   <body>
 
     <div class="container">
-      <header-elem></header-elem>
+      <header-elem id="header"></header-elem>
       <div class="room">
         <video-elem id="videos"></video-elem>  
-        <chat-elem class="chat"></chat-elem>
       </div>
-      <footer-elem></footer-elem>
+      <footer-elem id="footer"></footer-elem>
     </div>
 
     <!-- Web Components -->
     <script src="../../../modules/header.js"></script>
     <script src="../../../modules/footer.js"></script>
     <script src="../../../modules/video.js"></script>
-    <script src="../../../modules/chat.js"></script>
 
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>

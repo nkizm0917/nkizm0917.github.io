@@ -1,0 +1,56 @@
+#media {
+  display: none;
+}
+
+#videos {
+  display: inline-block;
+}
+
+.room {
+  display: inline;
+}
+
+#footer {
+  left: 30px;
+}
+
+
+#now-sharing {
+  animation: blink 2s ease-out 0s infinite alternate;
+}
+@keyframes blink {
+	0% {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 10px;
+    color: rgb(184, 72, 72);
+    opacity: 0;
+  }
+	100% {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 10px;
+    color: rgb(184, 72, 72);
+    opacity: 1;
+  }
+}
+@-webkit-keyframes blink {
+	0% {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 10px;
+    color: rgb(184, 72, 72);
+    opacity: 0;
+  }
+	100% {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 10px;
+    color: rgb(184, 72, 72);
+    opacity: 1;
+  }
+}

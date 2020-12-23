@@ -118,11 +118,17 @@ const Peer = window.Peer;
 
     // Render remote stream for new peer join in the room
     room.on('stream', async stream => {
+      const newAudio = document.createElement('audio');
+      newAudio.srcObject = stream;
+      newAudio.playsInline = true;
+      newAudio.setAttribute('data-peer-id', stream.peerId)
+
       var setId = stream.peerId
       var userName = peer.options[setId]
 
       const wrapVideo = document.createElement('div');
       wrapVideo.className = "wrap-video";
+      wrapVideo.id = `${setId}_wrap`;
       
       const nameTag = document.createElement('div');
       nameTag.className = "name";
@@ -133,12 +139,17 @@ const Peer = window.Peer;
       newStamp.className = 'stamp'
       newStamp.id = `${setId}_stamp`;
       newStamp.src = '../../../img/normal.svg'
+
       const area = document.createElement('div');
       area.className = 'stamp-area';
       area.id = `${setId}_area`;
+
       area.appendChild(newStamp);
       area.appendChild(nameTag);
-      remoteVideos.append(area);
+      remoteVideos.appendChild(area);
+      remoteVideos.appendChild(newAudio);
+
+      await newAudio.play().catch(console.error);
     });
 
     room.on('data', ({ data }) => {

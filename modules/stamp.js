@@ -4,7 +4,7 @@ class stamp extends HTMLElement {
     super();
     this.innerHTML = `
       <div class="wrap-video" id="local-wrap-video">
-        <video id="js-local-stream"></video>        
+        <video id="js-local-stream"></video>
         <div class="stamp-area" id="local-stamp-area">
           <img class="stamp" id="local-stamp" src="../../../img/normal.svg"></img>
         </div>

@@ -21,7 +21,11 @@ video, #dummy, .remote-streams {
   /* grid-template-columns: 1fr 280px; */
   /* grid-template-columns: 65% 20% 15%; */
   /* grid-template-columns: 5fr minmax(200px, 1fr) 280px; */
-  grid-template-columns: 4fr 1fr;
+  /* grid-template-columns: 3fr 1fr; */
+  /* grid-template-columns: 1fr minmax(25%, calc(calc(33vh - 20px) * 4 / 3)); */
+  /* grid-template-columns: 1fr minmax(calc(calc(33vh - 20px) * 4 / 3), 25%); */
+  /* grid-template-columns: 3fr calc(calc(33vh - 20px) * 4 / 3); */
+  grid-template-columns: 1fr max-content;
   /* gap: 10px; */
 }
 
@@ -44,8 +48,8 @@ video, #dummy, .remote-streams {
 }
 
 .room .remote-streams {
-  display: flex;
-  flex-wrap: wrap;
+  /* display: flex;
+  flex-wrap: wrap; */
 }
 
 .room #dummy {
@@ -84,9 +88,16 @@ video, #dummy, .remote-streams {
   height: calc(100vh - 80px);
 }
 
-video {
+#media video {
   max-height: calc(100vh - 110px);
   /* margin: 15px; */
+}
+
+
+#videos video {
+  /* max-height: ; */
+  max-height: calc(33vh - 35px);
+  max-width: calc(calc(33vh - 35px) * 4 / 3);
 }
 
 
