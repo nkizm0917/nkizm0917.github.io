@@ -303,6 +303,9 @@ const Peer = window.Peer;
       stopTrigger.style.display = 'none';
       mediaTrigger.style.display = 'inline';
 
+      const nowSharing = document.getElementById('now-sharing');
+      nowSharing.remove();
+
       document.getElementById('style-sharing').disabled = true;
     });
 

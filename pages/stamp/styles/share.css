@@ -1,0 +1,98 @@
+/* outside */
+#header #to-top {
+  right: 60px;
+}
+.container {
+  padding-bottom: 110px;
+}
+#footer {
+  height: 80px;
+}
+
+/* room */
+.room {
+  display: grid;
+  grid-template-columns: 1fr calc(33vh - 35px);
+  height: calc(100vh - 120px)
+}
+
+.room, #media, #stamps, video, .remote-streams {
+  background: #111111;
+}
+
+/* media */
+#media {
+  padding: 10px;
+  text-align: center;
+  position: relative;
+}
+
+#media video {
+  max-width: 100%;
+  max-height: calc(100vh - 180px);
+}
+
+#media p {
+  color: white;
+}
+
+
+
+/* stamp */
+#stamps {
+  padding: 15px;
+  height: calc(100vh - 150px);
+}
+
+.stamp-area, .stamp {
+  height: calc(33vh - 65px);
+  width: calc(33vh - 65px);
+}
+
+.stamp-area {
+  background: #eee;
+  position: relative;
+  margin: 0 0 15px;
+}
+
+#js-local-stream {
+  z-index: 999;
+  transform: scaleX(-1);
+}
+
+#js-remote-stream {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.name, .local-name {
+  position: absolute;
+  bottom: 0px;
+  padding: 2px;
+  z-index: 9999;
+}
+
+#stamps video {
+  display:none;
+}
+
+
+/* component */
+#js-share-trigger, #js-watch-trigger, #js-stop-trigger , #confirm{
+  display: none;
+}
+
+.stamp-button {
+  padding: 0;
+  border: none;
+  background: transparent;
+  height: 72px; 
+  width: 72px;
+}
+
+#confirm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
