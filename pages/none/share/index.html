@@ -4,18 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SkyWay - Room</title>
-    <!-- <link rel="stylesheet" href="../_shared/style.css"> -->
     <link rel="stylesheet" href="../../../global-style.css">
-    <link rel="stylesheet" href="./style.css" id="style">
-    <link rel="stylesheet" href="./style-sharing.css" disabled="true" id="style-sharing">
+    <link rel="stylesheet" href="../styles/share.css" id="style">
+    <link rel="stylesheet" href="../styles/sharing.css" disabled="true" id="style-sharing">
   </head>
   <body>
     <div class="container">
       <header-elem id="header"></header-elem>
-      <div class="room">
+      <div class="room" id="room">
         <share-elem id="media"></share-elem>  
-        <video-elem id="videos"></video-elem>  
-        <!-- <chat-elem class="chat"></chat-elem> -->
+        <video-elem id="videos"></video-elem>
       </div>
       <footer-elem id="footer"></footer-elem>
     </div>
@@ -24,7 +22,6 @@
     <script src="../../../modules/footer.js"></script>
     <script src="../../../modules/share.js"></script>
     <script src="../../../modules/video.js"></script>
-    <!-- <script src="../../../modules/chat.js"></script> -->
     <script src="//cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
     <script src="./script.js"></script>
   </body>

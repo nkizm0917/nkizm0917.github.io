@@ -1,0 +1,39 @@
+/* header */
+#header #to-top {
+  right: 60px;
+}
+
+/* room */
+.room {
+  display: grid;
+  grid-template-columns: 1fr 0;
+}
+
+#videos {
+  display: none;
+}
+
+#media, video {
+  background: #111111;
+}
+
+/* media */
+#media {
+  height: calc(100vh - 80px);
+  width: calc(calc(100vh - 80px) * 4 / 3);
+  min-width: max-content;
+  padding: 10px;
+  text-align: center;
+}
+
+#media p {
+  color: white;
+}
+
+video {
+  max-height: calc(100vh - 110px);
+}
+
+#js-share-trigger, #js-watch-trigger, #js-stop-trigger , #confirm{
+  display: none;
+}
