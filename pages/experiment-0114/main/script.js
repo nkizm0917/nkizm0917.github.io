@@ -1,10 +1,10 @@
 const Peer = window.Peer;
 
 const urlParam = location.search.substring(1);
+let paramArray = [];
 if (urlParam) {
   console.log(urlParam);
   var param = urlParam.split('&');
-  var paramArray = [];
   for (i = 0; i < param.length; i++) {
     var paramItem = param[i].split('=');
     paramArray[paramItem[0]] = paramItem[1];
@@ -12,7 +12,7 @@ if (urlParam) {
   console.log(paramArray);
 }
 
-if (paramArray['room'] != null) {
+if (paramArray.room) {
   const input_room = document.getElementById('js-room-id');
   input_room.value = paramArray['room'];
 }
