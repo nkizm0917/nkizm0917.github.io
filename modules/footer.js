@@ -5,6 +5,7 @@ class footer extends HTMLElement {
     this.innerHTML = `
       <button id="js-video-trigger">映像OFF</button>
       <button id="js-audio-trigger">音声OFF</button>
+      <button id="js-self-trigger">セルフビューOFF</button>
     `;
   }
 
