@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>シーン選択</title>
+  <link rel="stylesheet" href="scene.css">
+</head>
+<body>
+  <form id="setting">
+    <span id="setting-title">シーン選択</span>
+    <div id="setting-area">
+      <div class="wrap-radios">
+        <!-- <label for="share">画面共有</label> -->
+          <div class="wrap-radio">
+            <input type="radio" name="scene" value="presentation" checked>
+            <label>
+              <h3>発表系</h3>
+              <p>1人が複数人に対して発表をおこなう形式。</p>
+              <p>進捗報告、成果発表など。</p>
+            </label>
+          </div>
+          <div class="wrap-radio">
+            <input type="radio" name="scene" value="discussion">
+            <label>
+              <h3>ディスカッション系</h3>
+              <p>複数人で話し合いをおこなう形式。</p>
+              <p>会議、ゼミ、ディベートなど。</p>
+            </label>
+          </div>
+          <div class="wrap-radio">
+            <input type="radio" name="scene" value="lecture">
+            <label>
+              <h3>講義系</h3>
+              <p>講師が生徒に対して講義をおこなう形式。</p>
+              <p>授業、セミナーなど。</p>
+            </label>
+          </div>
+          <div class="wrap-radio">
+            <input type="radio" name="scene" value="entertainment">
+            <label>
+              <h3>エンタメ系</h3>
+              <p>芸やトークを配信する形式。</p>
+              <p>各種ライブ、生配信企画など。</p>
+            </label>
+          </div>
+          <div class="wrap-radio">
+            <input type="radio" name="scene" value="talk">
+            <label>
+              <h3>雑談系</h3>
+              <p>知人同士で自由な会話をおこなう形式。</p>
+              <p>会食、飲み会、相談など。</p>
+            </label>
+          </div>
+          <!-- <div><input type="radio" name="scene" value=""><label>ON</label></div> -->
+      </div>
+    </div>
+    <button type="button" id="start-button">次へ</button>
+  </form>
+
+  <script src="scene.js"></script>
+</body>
+</html>

@@ -1,38 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="setting-style.css">
+  <title>設定</title>
+  <link rel="stylesheet" href="setting.css">
 </head>
 <body>
   <form id="setting">
+    <span id="setting-title">設定</span>
     <div id="setting-area">
-      <label for="title">音声</label>
-      <div class="inline-radio">
-        <div><input type="radio" name="audio" value="sub"><label>あり（字幕つき）</label></div>
-        <div><input type="radio" name="audio" value="yes" checked><label>あり</label></div>
-        <div><input type="radio" name="audio" value="no"><label>なし</label></div>
+      <div class="wrap-range">
+        <span id="richness-title">メディアリッチネス</span>
+        <p class="unit" id="lean">Lean</p>
+        <input type="range" name="richness" min="1" max="5" value="3">
+        <p class="unit" id="rich">Rich</p>
       </div>
-      <label for="screen">映像</label>
-      <div class="inline-radio">
-        <div><input type="radio" name="screen" value="video" checked><label>ビデオ</label></div>
-        <div><input type="radio" name="screen" value="stamp"><label>スタンプ</label></div>
-        <div><input type="radio" name="screen" value="no"><label>なし</label></div>
+      <div class="wrap-scales">
+        <p class="scale">テキスト</p>
+        <p class="scale">音声のみ</p>
+        <p class="scale">写真</p>
+        <p class="scale">スタンプ</p>
+        <p class="scale">映像</p>
+        <!-- <p class="scale">VR</p> -->
       </div>
-      <label for="chat">チャット</label>
-      <div class="inline-radio">
-        <div><input type="radio" name="chat" value="yes" checked><label>あり</label></div>
-        <div><input type="radio" name="chat" value="no"><label>なし</label></div>
-      </div>
-      <label for="share">画面共有</label>
-      <div class="inline-radio">
-        <div><input type="radio" name="share" value="yes"><label>あり</label></div>
-        <div><input type="radio" name="share" value="no" checked><label>なし</label></div>
+      <div class="wrap-radios">
+        <label for="share">画面共有</label>
+        <div class="wrap-radio">
+          <div><input type="radio" name="share" value="" checked><label>OFF</label></div>
+          <div><input type="radio" name="share" value=""><label>ON</label></div>
+        </div>
+        <label for="sub">字幕</label>
+        <div class="wrap-radio">
+          <div><input type="radio" name="sub" value="" checked><label>OFF</label></div>
+          <div><input type="radio" name="sub" value=""><label>ON</label></div>
+        </div>
+        <label for="self">セルフビュー</label>
+        <div class="wrap-radio">
+          <div><input type="radio" name="self" value=""><label>OFF</label></div>
+          <div><input type="radio" name="self" value="" checked><label>ON</label></div>
+        </div>
       </div>
     </div>
-    <button type="button" id="start-button">OK</button>
+    <button type="button" id="start-button">開始</button>
   </form>
 
   <script src="setting.js"></script>

@@ -1,0 +1,19 @@
+#videos video {
+  box-sizing: border-box;
+  border: 5px transparent solid;
+}
+
+.frame {
+  display: none;
+  height: 100%;
+  width: 100%;
+  border: 6px yellow solid;
+  box-sizing: border-box;
+  z-index: 99999;
+  position: absolute;
+}
+
+.local-name {
+  left: 2px;
+  bottom: 3px;
+}
