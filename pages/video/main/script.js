@@ -11,6 +11,14 @@ if (urlParam) {
   }
   console.log(paramArray);
 }
+if (paramArray.room) {
+  const input_room = document.getElementById('js-room-id');
+  input_room.value = paramArray.room;
+}
+if (paramArray.user) {
+  const input_user = document.getElementById('js-user-name');
+  input_user.value = paramArray.user;
+}
 
 (async function main() {
   const localVideo = document.getElementById('js-local-stream');

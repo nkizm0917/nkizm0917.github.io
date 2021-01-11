@@ -11,7 +11,6 @@ if (urlParam) {
   }
   console.log(paramArray);
 }
-
 if (paramArray.room) {
   const input_room = document.getElementById('js-room-id');
   input_room.value = paramArray.room;
