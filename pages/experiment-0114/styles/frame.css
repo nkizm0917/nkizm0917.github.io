@@ -1,4 +1,4 @@
-#videos video {
+#videos video, .photo {
   box-sizing: border-box;
   border: 5px transparent solid;
 }

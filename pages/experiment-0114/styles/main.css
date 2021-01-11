@@ -12,7 +12,7 @@
   max-width: calc(calc(400vh / 3) - 95px);
 }
 
-video, #dummy, .wrap-video:not(#local-wrap-video) {
+video, #dummy, .wrap-video:not(#local-wrap-video), .photo {
   width: calc(50vw - 60px);
   height: calc(calc(50vw - 60px) * 3 / 4);
   max-height: calc(50vh - 52.5px);
@@ -24,11 +24,11 @@ video, #dummy, .wrap-video:not(#local-wrap-video) {
   margin: 15px 0 0 15px;
 }
 
-video, #dummy, #js-remote-streams {
+video, #dummy, #js-remote-streams, .photo {
   background: #111111;
 }
 
-#js-local-stream {
+#js-local-stream, #local-photo {
   position: absolute;
   z-index: 999;
   transform: scaleX(-1);
@@ -64,9 +64,11 @@ video, #dummy, #js-remote-streams {
   background: rgba(0,0,0,0.4);
 }
 
+/* 追加-0114 */
+
 .admin, .admin video {
-  max-height: calc(calc(50vh - 52.5px) * 3 / 4) !important;
-  max-width: calc(calc(50vh - 52.5px)) !important;
+  height: calc(calc(50vh - 52.5px) * 3 / 4) !important;
+  width: calc(calc(50vh - 52.5px)) !important;
 }
 .admin {
   position: absolute !important;
@@ -75,7 +77,15 @@ video, #dummy, #js-remote-streams {
   transform: translateX(-50%) translateY(-50%);
   z-index: 999;
 }
+#dummy.admin {
+  background: transparent;
+}
 
 #videos {
   display: block;
+}
+
+.photo {
+  display: none;
+  transform: scaleX(1) !important;
 }
