@@ -7,9 +7,9 @@
   display: none;
   height: 100%;
   width: 100%;
-  border: 6px yellow solid;
+  border: 6px #cae028 solid;
   box-sizing: border-box;
-  z-index: 99999;
+  z-index: 9999;
   position: absolute;
 }
 

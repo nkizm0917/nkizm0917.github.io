@@ -1,5 +1,17 @@
 const Peer = window.Peer;
 
+const urlParam = location.search.substring(1);
+let paramArray = [];
+if (urlParam) {
+  console.log(urlParam);
+  var param = urlParam.split('&');
+  for (i = 0; i < param.length; i++) {
+    var paramItem = param[i].split('=');
+    paramArray[paramItem[0]] = paramItem[1];
+  }
+  console.log(paramArray);
+}
+
 (async function main() {
   const localVideo = document.getElementById('js-local-stream');
   const joinTrigger = document.getElementById('js-join-trigger');
@@ -8,6 +20,7 @@ const Peer = window.Peer;
   const roomId = document.getElementById('js-room-id');
   const videoTrigger = document.getElementById('js-video-trigger');
   const audioTrigger = document.getElementById('js-audio-trigger');
+  const selfTrigger = document.getElementById('js-self-trigger');
   const userName = document.getElementById('js-user-name');
 
   // dummy作成
@@ -36,6 +49,12 @@ const Peer = window.Peer;
   joinTrigger.addEventListener('click', () => {
     if (!peer.open) {
       return;
+    }
+    if (paramArray) {
+      if (paramArray.self == 'off') {
+        console.log('Off!');
+        onClickSelf('OFF');
+      }
     }
     scrollTo(0, 50);
 
@@ -147,6 +166,10 @@ const Peer = window.Peer;
     leaveTrigger.addEventListener('click', () => room.close(), { once: true });
     videoTrigger.addEventListener('click', onClickVideo);
     audioTrigger.addEventListener('click', onClickAudio);
+    selfTrigger.addEventListener('click', () => {
+      const onOff = (selfTrigger.textContent == 'セルフビューON') ? 'ON' : 'OFF';
+      onClickSelf(onOff);
+    });
 
     function onClickVideo() {
       localStream.getVideoTracks().forEach((track) => (track.enabled = !track.enabled));
@@ -156,7 +179,25 @@ const Peer = window.Peer;
     function onClickAudio() {
       localStream.getAudioTracks().forEach((track) => (track.enabled = !track.enabled));
       localStream.getAudioTracks().forEach((track) => (audioTrigger.textContent = track.enabled ? "音声OFF" : "音声ON"));
-    }    
+    }
+
+    function onClickSelf(onOff) {
+      // const onOff = (selfTrigger.textContent == 'セルフビューON') ? 'ON' : 'OFF';
+      const wrap = document.getElementById('local-wrap-video');
+      const dummy = document.getElementById('dummy');
+
+      if (onOff == 'ON') {
+        console.log('on');
+        wrap.style.display = 'block'
+        dummy.style.display = 'block'
+        selfTrigger.textContent = 'セルフビューOFF'
+      } else if (onOff == 'OFF') {
+        console.log('off');
+        wrap.style.display = 'none';
+        dummy.style.display = 'none';
+        selfTrigger.textContent = 'セルフビューON'
+      }
+    }
   });
 
   peer.on('error', console.error);
