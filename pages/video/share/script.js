@@ -1,5 +1,27 @@
 const Peer = window.Peer;
 
+let urlParam = location.search.substring(1);
+let paramArray = [];
+if (urlParam) {
+  console.log(urlParam);
+  urlParam = decodeURI(urlParam);
+  console.log(urlParam);
+  var param = urlParam.split('&');
+  for (i = 0; i < param.length; i++) {
+    var paramItem = param[i].split('=');
+    paramArray[paramItem[0]] = paramItem[1];
+  }
+  console.log(paramArray);
+}
+if (paramArray.room) {
+  const input_room = document.getElementById('js-room-id');
+  input_room.value = paramArray.room;
+}
+if (paramArray.user) {
+  const input_user = document.getElementById('js-user-name');
+  input_user.value = paramArray.user;
+}
+
 (async function main() {
   const localVideo = document.getElementById('js-local-stream');
   const joinTrigger = document.getElementById('js-join-trigger');
@@ -8,6 +30,7 @@ const Peer = window.Peer;
   const roomId = document.getElementById('js-room-id');
   const videoTrigger = document.getElementById('js-video-trigger');
   const audioTrigger = document.getElementById('js-audio-trigger');
+  const selfTrigger = document.getElementById('js-self-trigger');
   const shareTrigger = document.getElementById('js-share-trigger');
   const watchTrigger = document.getElementById('js-watch-trigger');
   const userName = document.getElementById('js-user-name');
@@ -66,7 +89,12 @@ const Peer = window.Peer;
     if (!peer.open) {
       return;
     }
-
+    if (paramArray) {
+      if (paramArray.self == 'off') {
+        console.log('Off!');
+        onClickSelf('OFF');
+      }
+    }
     scrollTo(0, 50);
    
     const room = peer.joinRoom(roomId.value, {
@@ -187,6 +215,10 @@ const Peer = window.Peer;
     audioTrigger.addEventListener('click', onClickAudio);
     shareTrigger.addEventListener('click', onClickShare);
     stopTrigger.addEventListener('click', onClickStop);
+    selfTrigger.addEventListener('click', () => {
+      const onOff = (selfTrigger.textContent == 'セルフビューON') ? 'ON' : 'OFF';
+      onClickSelf(onOff);
+    });
 
 
     function onClickShare() {
@@ -220,6 +252,22 @@ const Peer = window.Peer;
     function onClickAudio() {
       localStream.getAudioTracks().forEach((track) => (track.enabled = !track.enabled));
       localStream.getAudioTracks().forEach((track) => (audioTrigger.textContent = track.enabled ? "音声OFF" : "音声ON"));
+    }
+
+    function onClickSelf(onOff) {
+      const wrap = document.getElementById('local-wrap-video');
+      // const dummy = document.getElementById('dummy');
+      if (onOff == 'ON') {
+        console.log('on');
+        wrap.style.display = 'block'
+        // dummy.style.display = 'block'
+        selfTrigger.textContent = 'セルフビューOFF'
+      } else if (onOff == 'OFF') {
+        console.log('off');
+        wrap.style.display = 'none';
+        // dummy.style.display = 'none';
+        selfTrigger.textContent = 'セルフビューON'
+      }
     }
   
   });
