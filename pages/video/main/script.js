@@ -1,8 +1,10 @@
 const Peer = window.Peer;
 
-const urlParam = location.search.substring(1);
+let urlParam = location.search.substring(1);
 let paramArray = [];
 if (urlParam) {
+  console.log(urlParam);
+  urlParam = decodeURI(urlParam);
   console.log(urlParam);
   var param = urlParam.split('&');
   for (i = 0; i < param.length; i++) {
