@@ -94,8 +94,22 @@ if (paramArray.user) {
 
     if (userName.value) {
       switch (userName.value) {
-        case 'sample':
-          localPhoto.src = '../photo/sample.jpg'
+        // case 'sample':
+        //   localPhoto.src = '../photo/sample.jpg';
+        case '齊藤数馬':
+          localPhoto.src = '../photo/saito.jpg';
+          break;
+        case '鈴木圭祐':
+          localPhoto.src = '../photo/suzuki.jpg';
+          break;
+        case '岩田真奈':
+          localPhoto.src = '../photo/iwata.jpg';
+          break;
+        case '吉村勇佐':
+          localPhoto.src = '../photo/yoshimura.jpg';
+          break;
+        default:
+          localPhoto.src = '../photo/sample.jpg';          
       }
     }
 
@@ -337,7 +351,23 @@ if (paramArray.user) {
       console.log(document.getElementById(`${id}_photo`));
       if (document.getElementById(`${id}_photo`)) {
         const photo = document.getElementById(`${id}_photo`);
-        photo.src = `../photo/${name}.jpg`;
+        switch (name) {
+          case '齊藤数馬':
+            photo.src = '../photo/saito.jpg';
+            break;
+          case '鈴木圭祐':
+            photo.src = '../photo/suzuki.jpg';
+            break;
+          case '岩田真奈':
+            photo.src = '../photo/iwata.jpg';
+            break;
+          case '吉村勇佐':
+            photo.src = '../photo/yoshimura.jpg';
+            break;
+          default:
+            photo.src = '../photo/sample.jpg';
+        }
+        // photo.src = `../photo/${name}.jpg`;
       }
     }
 

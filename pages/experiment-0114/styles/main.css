@@ -12,7 +12,7 @@
   max-width: calc(calc(400vh / 3) - 95px);
 }
 
-video, #dummy, .wrap-video:not(#local-wrap-video), .photo {
+video, #dummy, .wrap-video:not(#local-wrap-video), .wrap-local-photo {
   width: calc(50vw - 60px);
   height: calc(calc(50vw - 60px) * 3 / 4);
   max-height: calc(50vh - 52.5px);
@@ -28,12 +28,12 @@ video, #dummy, #js-remote-streams, .photo {
   background: #111111;
 }
 
-#js-local-stream, #local-photo {
+#js-local-stream {
   position: absolute;
   z-index: 999;
-  transform: scaleX(-1);
   top: 15px;
   left: 15px;
+  transform: scaleX(-1);
 }
 
 #js-remote-streams {
@@ -87,5 +87,25 @@ video, #dummy, #js-remote-streams, .photo {
 
 .photo {
   display: none;
-  transform: scaleX(1) !important;
+  /* transform: scaleX(1) !important; */
+  width: auto;
+
+  height: calc(calc(50vw - 60px) * 3 / 4);
+  max-height: calc(50vh - 52.5px);
+}
+.remote-streams .photo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.wrap-local-photo {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  display: flex;
+  justify-content: center;
+}
+#local-photo {
+  position: absolute;
+  z-index: 999;
 }

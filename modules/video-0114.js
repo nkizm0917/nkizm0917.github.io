@@ -5,7 +5,9 @@ class video extends HTMLElement {
     this.innerHTML = `
       <div class="wrap-video" id="local-wrap-video">
         <video id="js-local-stream"></video>
-        <img class="photo" id="local-photo"></img>
+        <div class="wrap-local-photo">
+          <img class="photo" id="local-photo"></img>
+        </div>
       </div>
       <div class="remote-streams" id="js-remote-streams"></div>
     `;
