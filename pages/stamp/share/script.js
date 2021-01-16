@@ -1,5 +1,27 @@
 const Peer = window.Peer;
 
+let urlParam = location.search.substring(1);
+let paramArray = [];
+if (urlParam) {
+  console.log(urlParam);
+  urlParam = decodeURI(urlParam);
+  console.log(urlParam);
+  var param = urlParam.split('&');
+  for (i = 0; i < param.length; i++) {
+    var paramItem = param[i].split('=');
+    paramArray[paramItem[0]] = paramItem[1];
+  }
+  console.log(paramArray);
+}
+if (paramArray.room) {
+  const input_room = document.getElementById('js-room-id');
+  input_room.value = paramArray.room;
+}
+if (paramArray.user) {
+  const input_user = document.getElementById('js-user-name');
+  input_user.value = paramArray.user;
+}
+
 (async function main() {
   const localVideo = document.getElementById('js-local-stream');
   const joinTrigger = document.getElementById('js-join-trigger');
